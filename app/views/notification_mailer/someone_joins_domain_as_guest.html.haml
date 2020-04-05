@@ -1,0 +1,27 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      %p
+        = "Hello #{@recipient.first_name},"
+      %p
+        = @guest.name
+        = "just joined the following workspace as a guest: "
+        %strong
+          = @new_domain.name
+
+      %p
+        - if @recipient.following?(@guest)
+          = "You are currently following #{@guest.first_name}."
+        - else
+          = "You are not following #{@guest.first_name}."
+
+  %tr
+    %td{style: 'padding-top: 40px;'}
+      %p
+        - link_url = strip_version(v2_user_url(@guest, host: @domain.host_url, protocol: 'https'))
+        = link_to "View #{@guest.first_name}'s Profile", link_url, style: link_styles + 'width: 200px; margin: 0 auto;'
+      %p
+        - link_url = "https://#{@domain.tenant_name}.friyay.io"
+        = link_to 'Visit Workspace', link_url, style: link_styles + 'width: 200px; margin: 0 auto;'

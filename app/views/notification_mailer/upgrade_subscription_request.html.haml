@@ -1,0 +1,14 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207);'
+- link_url = "https://#{@domain.tenant_name}.friyayapp.io/settings"
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      %p
+        = "Hi #{@admin.name},"
+      %p
+        = @user.first_name
+        has requested to be upgraded to a 
+        = @role 
+        Please follow this link to access the 
+        = link_to "upgrade settings", link_url, style: link_styles

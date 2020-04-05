@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "text": "Connect a Topic",
+  "response_type": "in_channel",
+  "attachments": 
+  [{ "text": "Select a Topic ", "fallback": "Interactive message to select topic", 
+    "color": "#3B3155", "attachment_type": "default", "callback_id": "topic_connection",
+    "actions": [{"name": "topic_selection", "text": "Pick a topic...", "callback_id": "select_topic_options",
+    "type": "select", "data_source": "external" 
+  }]}]}

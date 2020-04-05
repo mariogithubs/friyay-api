@@ -1,0 +1,13 @@
+%p
+  = @invitation.user.name
+  created the team
+  = @group.title
+  on Friyay and is inviting you to join the team. A team is an easy way to share multiple Topics with a list of people.  Follow the link to join.
+%p
+  Message from
+  = @invitation.user.name
+  = ": #{@invitation.custom_message}"
+%p
+  Follow
+  = link_to "link", @invite_url
+  to join.

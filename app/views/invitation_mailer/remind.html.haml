@@ -1,0 +1,26 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td{colspan: 2}
+      %p
+        We wanted to give you a heads-up that your invitation from
+        = @invitation.user.name
+        to Friyay is still waiting for you.
+      %p
+        Create your account so you can learn everything you want to know about the topics you’re passionate about.
+  - unless @invitation.custom_message.blank?
+    %tr
+      %td{colspan: 2}
+        %p
+          Message from
+          = @invitation.user.name
+    %tr
+      %td{valign: 'top', style: 'text-align: center;width: 50px;'}
+        #quote
+          =image_tag "https://s3-us-west-2.amazonaws.com/tiphiveupload/assets/blockquote_30px.png"
+      %td{style: 'font-style: italic;'}
+        = @invitation.custom_message
+  %tr
+    %td{colspan: 2, style: 'padding-top: 40px;'}
+      = link_to 'Create Your Account', @invite_url, style: link_styles + 'width: 200px; margin: 0 auto;'

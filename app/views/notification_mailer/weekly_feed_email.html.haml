@@ -1,0 +1,59 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2;'
+
+%p{style: 'text-align: center'}
+  %h3{style: 'text-align: center'}
+    Weekly summary beginning
+    =(Time.now - 7.days).to_date.to_s(:nice)
+  %table{border: '0', cellpadding: '5', style: 'border: none;'}
+    - @notifications.each do |notification|
+      - name = notification.notifier.try(:name)
+
+      - case notification.action
+      - when 'someone_likes_tip'
+        - link_url = strip_version(v2_tip_url(notification.notifiable.votable, @host_options))
+        - link = link_to 'View Tip', link_url, style: link_styles
+        - item_string = "#{name} just liked your tip!"
+      - when 'someone_likes_question'
+        - link_url = strip_version(v2_question_url(notification.notifiable.votable, @host_options))
+        - link = link_to 'View Question', link_url, style: link_styles
+        - item_string = "#{name} just liked your question!"
+      - when 'someone_add_tip_to_topic'
+        - link_url = strip_version(v2_tip_url(notification.notifiable.follower, @host_options))
+        - link = link_to 'View Tip', link_url, style: link_styles
+        - item_string = "#{name} added new tip to #{notification.notifiable.followable.title}"
+      - when 'someone_shared_topic_with_me'
+        - link_url = strip_version(v2_topic_url(notification.notifiable.shareable_object, @host_options))
+        - link = link_to 'View Topic', link_url, style: link_styles
+        - title = notification.notifiable.shareable_object.title
+        - item_string = t('notifications.shared.topic.body', name: name, title: title)
+      - when 'someone_shared_tip_with_me'
+        - link_url = strip_version(v2_tip_url(notification.notifiable.shareable_object, @host_options))
+        - link = link_to 'View Tip', link_url, style: link_styles
+        - title = notification.notifiable.shareable_object.title
+        - item_string = t('notifications.shared.tip.body', name: name, title: title)
+      - when 'someone_shared_question_with_me'
+        - link_url = strip_version(v2_question_url(notification.notifiable.shareable_object, @host_options))
+        - link = link_to 'View Question', link_url, style: link_styles
+        - title = notification.notifiable.shareable_object.title
+        - item_string = t('notifications.shared.question.body', name: name, title: title)
+      - when 'someone_comments_on_tip'
+        - link_url = strip_version(v2_tip_url(notification.notifiable.commentable, @host_options))
+        - link = link_to 'View Tip', link_url, style: link_styles
+        - item_string = ""
+      - when 'someone_added_to_domain'
+        - link_url = strip_version(v2_domain_url(@domain.tenant_name, @host_options))
+        - link = link_to 'View Workspace', link_url, style: link_styles
+        - item_string = ""
+      - when 'someone_commented_on_tip_user_commented'
+        - link_url = strip_version(v2_tip_url(notification.notifiable.commentable, @host_options))
+        - link = link_to 'View Tip', link_url, style: link_styles
+        - item_string = ""  
+
+      %tr
+        %td{style: 'width: 100px; text-align: center'}
+          =link
+        %td
+          =item_string
+    %tr
+      %td{colspan: 2, style: 'text-align: center; padding-top: 40px;'}
+        = link_to 'Visit Friyay', strip_version(v2_tips_url(host: @domain.host_url, protocol: 'https')), style: link_styles + 'width: 200px;margin:0 auto;'

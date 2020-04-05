@@ -1,0 +1,12 @@
+/ %p
+/   = "Hello #{@notification.user.name}"
+/ %p
+/   = @notification.notifier.name
+/   just added you to the group:
+/   = @notification.notifiable.followable.title
+/   to share and discover tips with all the group members.
+
+/ %p
+/   Click
+/   = link_to "here", v2_group_url(@notification.notifiable.followable, host: @domain)
+/   to view the group. A group is an easy way to share multiple Topics with the same list of people.

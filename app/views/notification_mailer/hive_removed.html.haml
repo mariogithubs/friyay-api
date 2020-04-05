@@ -1,0 +1,17 @@
+%p
+  Hi
+  = "#{@notification.user.first_name},"
+%p
+  A Smart Card you were following has been removed by
+  = link_to @notifier.name, strip_version(v2_user_url(@notifier, host: @domain.host_url, protocol: 'https'))
+
+- if @alternative_hive
+  - alternate_topic_url = strip_version(v2_topic_url(@alternate_hive, host: @domain.host_url, protocol: 'https'))
+  %p
+    All of the tips have been moved to
+    = link_to @alternative_hive.title, alternative_topic_url
+%p
+
+  Removed Smart Card:
+  %strong
+    =@removed_hive_title

@@ -1,0 +1,79 @@
+en:
+  notifications:
+    common:
+      tip:
+        view_tip_with_title: "View Card: %{title}"
+        view_tip: "View Card"
+    shared:
+      topic:
+        subject: "%{name} shared the Topic: %{title} with you to exchange tips, knowledge and information for this topic"
+        body_html: "%{name} shared the following Topic with you to exchange tips, knowledge and information: <strong>%{title}</strong>"
+        body_daily_html: "%{name} shared the following Topic with you to exchange tips, knowledge and information: <strong>%{title}</strong>"
+        view_topic: "View Cards in %{title}"
+      tip:
+        subject: "%{name} shared the Card: %{title} with you"
+        body_html: "%{name} shared the following Card with you:"
+        body_daily_html: "%{name} shared this Card with you: <strong>%{title}</strong><br>
+          In: %{topic_list}"
+        view_tip: "View Card"
+      questions:
+        subject: "%{name} shared the Question %{title} with you"
+        body: "%{name} shared the Question %{title} with you."
+        body_daily_html: "%{name} shared the Question %{title} with you."
+        body_domain_html: "%{name} shared the following Question with you in the <strong>%{domain}</strong> domain: <strong>%{title}</strong>"
+    liked:
+      tip:
+        subject: "%{name} liked your Card %{title}"
+        body: "%{name} liked your Card %{title}."
+      questions:
+        subject: "%{name} liked your Questions %{title}"
+        body: "%{name} liked your Questions %{title}."
+    created:
+      tip:
+        subject: 'N/A'
+        body_html: "%{name} added the following Card:"
+        body_daily_html: "%{name} added the Card: <strong>%{title}</strong><br />
+          In: %{topic_list}"
+      topic:
+        subject: 'N/A'
+        body_html: "%{name} added the Topic: <strong>%{hive_title}</strong>."
+        body_daily_html: "%{name} added the Topic: <strong>%{hive_title}</strong>."
+        view_topic: "View Topic"
+    assigned:
+      tip:
+        subject: 'N/A'
+        body: "%{name} assigned a Card to you: %{title}"
+    invitations:
+      reminder:
+        public: "We wanted to give you a heads up that your invitation from %{user} on Friyay is still waiting for you."
+        private: "We wanted to give you a heads up that your invitation from %{user} to the %{domain} workspace on Friyay is still waiting for you."
+      join: Join now to make sure you are notified of anything relevant to you.
+      share_public:
+        subject: "You are invited to join Friyay. %{user} shared %{title} with you."
+        join: 'Create your account'
+      share_private:
+        subject: "You are invited to join the %{domain} workspace on Friyay. %{user} shared %{title} with you."
+        join: 'Join Workspace'
+      learn: Create your account so you can learn everything you want to know about the topics you’re passionate about.
+    joined:
+      domain:
+        body_daily_html: "#{name} joined the Workspace: <strong>#{domain}</strong>"
+    summary:
+      someone_likes_tip: Someone liked a Card
+      someone_likes_question: Someone liked a question
+      someone_adds_topic: TOPICS WERE ADDED
+      someone_adds_topic_for_invitee: Topics were added
+      someone_adds_tip: Someone added a new Card
+      someone_add_tip_to_topic: Someone added a Card to a Topic you follow
+      someone_add_tip_to_topic_for_invitee: Cards were added
+      someone_shared_topic_with_me: Someone shared a Topic with you
+      someone_shared_tip_with_me: Someone shared a Card with you
+      someone_shared_question_with_me: Someone shared a question with you
+      someone_comments_on_tip: Someone commented on a Card
+      someone_added_to_domain: New member added to a Workspace you belong to
+      someone_joins_domain: New member joined a Workspace you belong to
+      someone_joins_domain_for_invitee: New members joined this Workspace
+      someone_commented_on_tip_user_commented: Someone has commented on a Card you commented on
+      someone_assigned_tip: someone assigned tip
+    archived:
+      view_archived_tips: View all archived Cards

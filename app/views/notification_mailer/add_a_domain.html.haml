@@ -1,0 +1,43 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      %p Hi Team Leader!
+
+      %p
+        = "Congrats on creating a workspace for #{@domain.name}!"
+
+      %p
+        We're on a mission to help you share and find anything with anyone, fast. Create a Topic for any topic and start filling it with files, content, knowledge, articles, links, notes, ideas: anything! Then share it with just the right people.
+
+      %p
+        Here are some of the
+        = link_to 'most common Topic suggestions.', 'http://friyay.io/hive-suggestions.html'
+
+      %p
+        %ol
+          %li
+            Create Topics for information you want to work with or share.
+          %li
+            Invite people. Include a welcome message in the invite
+            = link_to 'here is an example.', 'http://friyay.io/inviting-team-members.html'
+          %li
+            Start sharing
+
+      %p
+        Watch our
+        = link_to "Friyay for Teams video", "http://friyay.io/for-work.html"
+        = "/"
+        = link_to "How to build a Topic", "http://friyay.io/for-work.html"
+        to see how it works.
+
+      %p We'll send you more tips periodically, as well.
+
+      %p Happy Tipping!
+
+  %tr
+    %td{style: 'padding-top: 40px;'}
+      %p
+        - link_url = "https://#{@domain.tenant_name}.friyayapp.io"
+        = link_to 'Visit Your Workspace', link_url, style: link_styles + 'width: 200px; margin: 0 auto;'

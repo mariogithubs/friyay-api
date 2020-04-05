@@ -1,0 +1,9 @@
+.col-md-6.col-md-offset-3
+  .panel.panel-default
+    .panel-body
+      %p Hi,
+      %p
+        = "A new workspace: "
+        = link_to(@domain.name, "https://#{@domain.tenant_name}.friyayapp.io")
+        = " has been created by "
+        = link_to "#{@user.name}", strip_version(v2_user_url(@user, host: @host, protocol: 'https'))

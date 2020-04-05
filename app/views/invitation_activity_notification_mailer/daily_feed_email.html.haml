@@ -1,0 +1,73 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2;'
+
+%p{style: "text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+  #{@invitation.user_name} invited you to join the <strong>#{@domain.name}</strong> workspace on Friyay to share
+  knowledge, information, best practices, and ideas.
+
+%p{style: "text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+  Here is some recent activity. Join below to view it all, comment, and share your own knowledge, information,
+  best practices and ideas with your colleagues.
+
+%table{border: '0', cellpadding: '5', style: "border: none; min-width: 75%; margin: auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+  - @notifications.group_by(&:action).each do |group|
+    - next if group[1].empty?
+    %tr
+      %th
+        %div{style: 'display: table; margin: 40px auto 10px; border-top: 1px solid #aaa; border-bottom: 1px solid #aaa;'}
+          = t("notifications.summary.#{group[0]}_for_invitee").upcase
+    - group[1].each do |notification|
+      %tr
+        %td
+          %table
+            :ruby
+              name = notification.notifier.try(:name)
+              skip_line = false
+
+              case notification.action
+              when 'someone_adds_topic'
+                skip_line = true if notification.try(:notifiable).blank?
+                unless skip_line
+                  link_url = strip_version(v2_topic_url(notification.notifiable, @host_options))
+                  link = link_to 'View Topic', link_url, style: link_styles
+                  title = notification.notifiable.title
+
+                  item_string = t('notifications.created.topic.body_daily_html', name: name, hive_title: title)
+                end
+
+              when 'someone_add_tip_to_topic'
+                skip_line = true if notification.notifiable.try(:follower).blank?
+                unless skip_line
+                  link_url = strip_version(v2_tip_url(notification.notifiable.follower, @host_options))
+                  link = link_to 'View Tip', link_url, style: link_styles
+                  tip_title = notification.notifiable.follower.title
+                  topic_list = notification.notifiable.follower.following_topics.map(&:title).to_sentence
+
+                  item_string = t('notifications.created.tip.body_daily_html', name: name, title: tip_title, topic_list: topic_list)
+                end
+
+              when 'someone_joins_domain'
+                skip_line = true if notification.notifiable.try(:user).blank?
+                unless skip_line
+                  link_url = strip_version(v2_user_url(notification.notifiable.user, @host_options))
+                  new_member_name = notification.notifiable.user.name
+                  domain_name = notification.notifiable.domain.name
+                  link = link_to "View Profile", link_url, style: link_styles
+
+                  item_string = t('notifications.joined.domain.body_daily_html', name: new_member_name, domain: domain_name)
+                end
+
+              end
+
+            - unless skip_line
+              %tr
+                %td{style: 'width: 100px; text-align: center'}
+                  =link
+                %td
+                  =item_string
+  %tr
+    %td{colspan: 2, style: 'padding-top: 40px;'}
+      - if @invitation.existing_user
+        - link_url = strip_version(connect_v2_invitation_url(id: @invitation.invitation_token, host: @domain.host_url, protocol: 'https'))
+      - else
+        - link_url = @invite_url
+      = link_to 'Join Workspace', link_url, style: link_styles + 'width: 200px; margin: 0 auto;'

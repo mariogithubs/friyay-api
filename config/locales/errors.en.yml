@@ -1,0 +1,4 @@
+en:
+  errors:
+    invitations:
+      invalid_emails_html: "One or more emails are not valid:<br> %{invalid_emails}"

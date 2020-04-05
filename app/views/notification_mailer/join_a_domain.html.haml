@@ -1,0 +1,45 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      %p
+        ="Hi #{@notification.user.first_name},"
+      %p
+        You have successfully joined the
+        %strong
+          = @new_domain.name
+        workspace!
+
+      %p Friyay is here to help you and your team be more productive by unlocking the learning potential of your team.
+
+      %p Are you ready to save your team hours of time spent searching for information? By just investing 5 minutes a day, you can save your team from a lot of frustration and headaches.
+
+      %p To help you experience the value of Friyay, we have designed a 30 day Productivity & Knowledge Booster program.
+
+      %p So what happens when you follow the program?
+
+      %ul
+        %li Less emails (whooo!)
+        %li Less documents (double whoo!)
+        %li Less confusion
+        %li Quickly find what you need
+        %li Quickly share what you have learned
+        %li Learn best practices from other and get tips from peers
+        %li Stay informed and up-to-date with company knowledge
+        %li Increased performance of you and your team
+        %li More time to focus on what’s really important
+        %li GET. MORE. DONE.
+
+      %p Here’s the catch! You have to DO it. Just like sticking to a diet or going to the gym, sharing what you know is a habit you need to develop and work on. But here’s the good news: when everyone on your team does it, everyone will reap those rewards.
+
+      %p No worries! This is going to be fun! Just sit back and follow the tips I’ll be sharing with you over the next 30 days, and see the changes for yourself!
+
+      %p Have a great and productive day!
+
+      %p PS: Did you know it is estimated that a single bee can visit 2000 flowers in a day?
+  %tr
+    %td{style: 'padding-top: 40px;'}
+      %p
+        - link_url = "https://#{@domain.tenant_name}.friyayapp.io"
+        = link_to 'Visit Your Workspace', link_url, style: link_styles + 'width: 200px; margin: 0 auto;'

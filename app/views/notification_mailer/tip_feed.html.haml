@@ -1,0 +1,12 @@
+.col-md-6.col-md-offset-3
+  .panel.panel-default
+    .panel-body
+      %p.text-center Tip summary
+      - @notifications.each do |notification|
+        - tip = notification.notifiable
+        %p
+          %strong= link_to "#{tip.title}", strip_version(v2_tip_url(tip, host: @domain.host_url, protocol: 'https'))
+        %p
+          = tip.body
+    .panel-footer
+      = link_to 'Go to Friyay', strip_version(v2_tips_url(host: @domain.host_url)), class: 'btn btn-primary'

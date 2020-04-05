@@ -1,0 +1,13 @@
+/ %p
+/   = "Hello #{@notification.user.name}"
+/ %p
+/   = @notification.notifier.name
+/   just added this
+/   = link_to "tip", v2_tip_url(@notification.notifiable, host: @domain)
+/   = " : "
+/   = @notification.notifiable.title
+
+/ %p
+/   Click
+/   = link_to "here", v2_tip_url(@notification.notifiable, host: @domain)
+/   to go see the full tip.

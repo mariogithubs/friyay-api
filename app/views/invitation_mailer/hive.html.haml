@@ -1,0 +1,25 @@
+%p
+  = @invitation.user.name
+  - if Apartment::Tenant.current == 'public'
+    shared a Topic
+    = @hive.title
+  - else
+    invited you to the
+    = @hive.title
+    Topic on the
+    = @domain
+    workspace.
+%p
+  TipTopic helps you and your team be more productive by letting you create information hubs, called Topics, to quickly share and find knowledge and information.
+%p
+  Each Workspace collects everything employees need to know about a topic.
+%p
+  Join the Topics that interest you, create the ones that aren’t there yet, and start sharing tips with your colleagues!
+
+%p
+  Message from
+  = @invitation.user.name
+  = ": #{@invitation.custom_message}"
+%p
+  Click
+  = link_to "Join Friyay and view #{@invitation.user.first_name}'s tips.", @invite_url

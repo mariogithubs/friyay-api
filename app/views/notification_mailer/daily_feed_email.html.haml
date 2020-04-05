@@ -1,0 +1,112 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2;'
+
+%p{style: "text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+  %h3{style: "text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+    Daily summary for
+    =Time.now.to_date.to_s(:nice)
+  %table{border: '0', cellpadding: '5', style: "border: none; min-width: 75%; margin: auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"}
+    - @notifications.group_by(&:action).each do |group|
+      - next if group[1].empty?
+      %tr
+        %th
+          %div{style: 'display: table; margin: 40px auto 10px; border-top: 1px solid #aaa; border-bottom: 1px solid #aaa;'}
+            = t("notifications.summary.#{group[0]}").upcase
+      - group[1].each do |notification|
+        %tr
+          %td
+            %table
+              - name = notification.notifier.try(:name)
+
+              - case notification.action
+              - when 'someone_likes_tip'
+                - link_url = strip_version(v2_tip_url(notification.notifiable.votable, @host_options))
+                - link = link_to 'View Tip', link_url, style: link_styles
+                - item_string = "#{name} just liked your tip!"
+
+              - when 'someone_likes_question'
+                - link_url = strip_version(v2_question_url(notification.notifiable.votable, @host_options))
+                - link = link_to 'View Question', link_url, style: link_styles
+                - item_string = "#{name} just liked your question!"
+
+              - when 'someone_adds_topic'
+                - skip_line = true if notification.try(:notifiable).blank?
+                - unless skip_line
+                  - link_url = strip_version(v2_topic_url(notification.notifiable, @host_options))
+                  - link = link_to 'View Topic', link_url, style: link_styles
+                  - title = notification.notifiable.title
+                  - item_string = t('notifications.created.topic.body_daily_html', name: name, hive_title: title)
+
+              - when 'someone_adds_tip'
+                - link_url = strip_version(v2_tip_url(notification.notifiable, @host_options))
+                - link = link_to 'View Topic', link_url, style: link_styles
+                - tip_title = notification.notifiable.title
+                - topic_list = notification.notifiable.following_topics.map(&:title).to_sentence
+                - item_string = t('notifications.created.tip.body_daily_html', name: name, title: tip_title, topic_list: topic_list)
+
+              - when 'someone_add_tip_to_topic'
+                - skip_line = true if notification.notifiable.try(:follower).blank?
+                - unless skip_line
+                  - link_url = strip_version(v2_tip_url(notification.notifiable.follower, @host_options))
+                  - link = link_to 'View Tip', link_url, style: link_styles
+                  - tip_title = notification.notifiable.follower.title
+                  - topic_list = notification.notifiable.follower.following_topics.map(&:title).to_sentence
+                  - item_string = t('notifications.created.tip.body_daily_html', name: name, title: tip_title, topic_list: topic_list)
+
+              - when 'someone_shared_topic_with_me'
+                - link_url = strip_version(v2_topic_url(notification.notifiable.shareable_object, @host_options))
+                - link = link_to 'View Topic', link_url, style: link_styles
+                - title = notification.notifiable.shareable_object.title
+                - item_string = t('notifications.shared.topic.body_daily_html', name: name, title: title)
+
+              - when 'someone_shared_tip_with_me'
+                - link_url = strip_version(v2_tip_url(notification.notifiable.shareable_object, @host_options))
+                - link = link_to 'View Tip', link_url, style: link_styles
+                - title = notification.notifiable.shareable_object.title
+                - topic_list = notification.notifiable.shareable_object.following_topics.map(&:title).to_sentence
+                - item_string = t('notifications.shared.tip.body_daily_html', name: name, title: title, topic_list: topic_list)
+
+              - when 'someone_shared_question_with_me'
+                - link_url = strip_version(v2_question_url(notification.notifiable.shareable_object, @host_options))
+                - link = link_to 'View Question', link_url, style: link_styles
+                - title = notification.notifiable.shareable_object.title
+                - item_string = t('notifications.shared.question.body_daily_html', name: name, title: title)
+
+              - when 'someone_comments_on_tip'
+                - link_url = strip_version(v2_tip_url(notification.notifiable.commentable, @host_options))
+                - link = link_to 'View Tip', link_url, style: link_styles
+                - item_string = "#{name} commented on your tip: "
+                %strong
+                  = notification.notifiable.commentable.title
+
+              - when 'someone_added_to_domain'
+                - skip_line = true if notification.notifiable.try(:user).blank?
+                - unless skip_line
+                  - link_url = strip_version(v2_user_url(notification.notifiable.user, @host_options))
+                  - new_member_name = notification.notifiable.user.name
+                  - link = link_to "View Profile", link_url, style: link_styles
+                  - item_string = "#{new_member_name} was added to the domain: #{notification.notifiable.domain.name}"
+
+              - when 'someone_joins_domain'
+                - skip_line = true if notification.notifiable.try(:user).blank?
+                - unless skip_line
+                  - link_url = strip_version(v2_user_url(notification.notifiable.user, @host_options))
+                  - new_member_name = notification.notifiable.user.name
+                  - link = link_to "View Profile", link_url, style: link_styles
+                  - item_string = "#{new_member_name} joined the domain: #{notification.notifiable.domain.name}"
+
+              - when 'someone_commented_on_tip_user_commented'
+                - link_url = strip_version(v2_tip_url(notification.notifiable.commentable, @host_options))
+                - link = link_to 'View Tip', link_url, style: link_styles
+                - item_string = "#{name} commented on your tip: "
+                %strong
+                  = notification.notifiable.commentable.title    
+
+              - unless skip_line
+                %tr
+                  %td{style: 'width: 100px; text-align: center'}
+                    =link
+                  %td
+                    =item_string
+    %tr
+      %td{colspan: 2, style: 'text-align: center; padding-top: 40px;'}
+        = link_to 'Visit Friyay', "https://#{@domain.host_url}", style: link_styles + 'width: 200px;margin:0 auto;'

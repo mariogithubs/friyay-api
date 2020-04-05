@@ -1,0 +1,42 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td{colspan: 2}
+      %p
+        = @invitation.user.name
+        is inviting you to be a guest on the
+        %strong
+          = @new_domain
+        workspace on Friyay.
+
+      - if @invitation.existing_user
+        %p
+          As an existing user of Friyay, we have already placed
+          %strong
+            = @new_domain
+          listed in your workspaces dropdown. You can switch between workspaces anytime you want to.
+      - else
+        %p
+          Friyay is a flexible workspace that centralizes all the information around your projects and teams.
+
+  - unless @invitation.custom_message.blank?
+    %tr
+      %td{colspan: 2}
+        %p
+          Message from
+          = @invitation.user.name
+    %tr
+      %td{style: 'text-align: center;width: 50px;'}
+        #quote
+          =image_tag "https://s3-us-west-2.amazonaws.com/tiphiveupload/assets/blockquote_30px.png"
+      %td{style: 'font-style: italic;'}
+        = @invitation.custom_message
+  %tr
+    %td{colspan: 2, style: 'padding-top: 40px;'}
+      - if @invitation.existing_user
+        - options = { id: @invitation.invitation_token, host: @domain.host_url, protocol: 'https', email: @invitation.email }
+        - link_url = strip_version(connect_v2_invitation_url(options))
+      - else
+        - link_url = @invite_url
+      = link_to 'Join Workspace', link_url, style: link_styles + 'width: 200px; margin: 0 auto;'

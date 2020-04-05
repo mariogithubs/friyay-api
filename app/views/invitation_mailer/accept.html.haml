@@ -1,0 +1,21 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      - if @domain.tenant_name == 'public'
+        %p
+          = @user.name
+          = "has joined you on Friyay!"
+        %p
+          = "Share some Topics with #{@user.first_name} or ask them some questions!"
+      - else
+        %p
+          = @user.name
+          has joined you on the
+          %strong
+            = @domain.name
+          workspace on Friyay!
+  %tr
+    %td{style: 'padding-top: 40px;'}
+      = link_to "View #{@user.first_name}'s Profile", "https://#{@domain.host_url}/users/#{@user.id}", style: link_styles + 'width: 200px; margin: 0 auto;'

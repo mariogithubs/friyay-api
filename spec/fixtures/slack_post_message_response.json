@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "channel": "CCSV9G9QX",
+  "ts": "1539258530.000100",
+  "message": {
+      "text": "New Card Added",
+      "username": "",
+      "bot_id": "BD8KZ4MPC",
+      "type": "message",
+      "subtype": "bot_message",
+      "ts": "1539258530.000100"
+  }
+}

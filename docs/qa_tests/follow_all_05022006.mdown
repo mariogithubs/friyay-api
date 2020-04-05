@@ -1,0 +1,58 @@
+## QA TESTS::Follow All - Created: 05/02/2016
+#### Invitation Reminder
+1. Invite someone, work with Anthony to test if not responded to, the user gets a reminder
+    - Dev Note: Check the rake task and cron job
+    - Check for notify flag on reminder
+
+#### Following All People and Hives
+1. SETUP:
+    - As an existing user, invite 3 people to a domain: Bob, Mary, Alice
+    - Join the domain with Bob first
+    - Then join the domain with Mary
+    - Then join the domain with Alice
+    - Check with Anthony if 
+      + New user is flagged to follow all people
+      + New user is flagged to follow all hives
+      + Bob received an email that Mary Joined
+      + All users have the following notifications set to :daily
+          * When someone new joins the domain
+          * when someone on the domain adds a tip
+          * when someone I follow adds a tip
+          * when someone adds a tip to a Hive I follow
+          * when someone I follow creates a Hive
+          * when someone adds a Hive to the domain
+2. Confirm the following:
+    - Bob is following Mary
+    - Mary is following Bob
+2. Ask Anthony to change the following:
+    - Bob to NOT follow all people
+    - Mary to NOT follow all hives
+    - Alice to NOT follow people AND NOT follow hives
+2. As your original user, invite a fourth person: Harry
+3. Confirm the following:
+    - Bob, Mary and Alice each receive an email about Harry joining and is following them
+    - Alice and Bob's email should say, "Harry is following you now, but you are not following Harry"
+    - Alice and Bob's email should have a button to "Start Following Harry"
+    - Mary's email should say, "Harry is following you now and you are following Harry"
+    - Mary's email should have a button to "View Harry's profile"
+    - Harry should receive a welcome email as is normal for new joins
+    - Harry's email should mention that he is following all domain members 
+    - Harry's email should also mention that he is now following all hives on the domain
+4. Login as Harry
+5. Create a new Tip on an *existing* Hive shared with Everyone
+6. Confirm the following
+    - Bob, Mary and Alice should receive an email that Harry added a Tip to a Hive they were following
+        + *This is because when they were new, they all followed existing Hives*
+7. Create a new Hive with default settings
+8. Confirm the following
+    - Bob should get an email that a new Hive was created and as a follower, he will get updates for that hive
+    - Mary should get an email that someone she follows created a new Hive on the domain, but she will not receive updates, but she may visit and Follow the Hive to receive updates
+    - Alice should get an email that a new Hive was created on the domain, but she will not receive updates, but she may visit and Follow the Hive to receive updates
+    - They all should have a button to "Visit Hive"
+9. Create a new Tip on the new Hive, ensure shared with "everyone"
+    - Bob should get an email that a new tip was created on a Hive he is following
+    - Mary should get an email that someone she follows created a new tip
+    - Alice should get an email that someone on the domain created a tip
+12. Create a new Tip on the new Hive, share it only with Bob
+    - Bob should only get an email about the Tip being shared with him, not the Tip on a Hive
+    - Mary and Alice should not receive any emails about this Tip

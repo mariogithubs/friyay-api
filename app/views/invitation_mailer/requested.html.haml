@@ -1,0 +1,16 @@
+- link_styles = 'display: block; text-decoration: none; padding: 5px; background-color: #ffffff; color: rgb(54,154,207); border: 1px solid #cccccc; text-align: center; font-weight: 300; border-radius: 12px; line-height: 2; width: 100px;'
+
+%table{style: 'width: 100%;'}
+  %tr
+    %td
+      %p
+        =# Custom message: "Name has requested an invitation"
+        = @invitation.custom_message
+  %tr
+    %td{style: 'padding-top: 40px;'}
+      - approve_url = "http://#{@domain.host_url}/v2/invitations/#{@invitation.id}/approve_request"
+      = link_to 'Approve Request and Send Invitation', approve_url, style: link_styles + 'width: 275px; margin: 0 auto;'
+  %tr
+    %td
+      - decline_url = "https://#{@domain.host_url}/v2/invitations/#{@invitation.id}/decline_request"
+      = link_to 'Decline Invitation Request', decline_url, style: link_styles + 'width: 275px; margin: 0 auto;'
